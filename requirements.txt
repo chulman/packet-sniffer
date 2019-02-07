@@ -1,0 +1,4 @@
+django>=2.1.5
+django-debug-toolbar==1.8
+scapy==2.4.*
+django-redis==4.10.0

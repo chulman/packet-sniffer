@@ -1,0 +1,20 @@
+
+1)
+python manage.py shell pysniffer.settings.development
+or
+python manage.py runserver --settings=sniffer.settings.development
+
+하지만 매번 하려면 번거롭게 때문에..
+
+
+
+2) os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'sniffer.settings')
+
+3) DJANGO_SETTINGS_MODULE 환경변수를 원하는 환경으로 설정하면 --settings 옵션 없이도 이용할 수 있다.
+
+
+ $ export DJANGO_SETTINGS_MODULE=myproject.settings.development
+
+
+
+ https://docs.djangoproject.com/en/1.10/topics/settings/
