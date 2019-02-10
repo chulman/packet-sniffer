@@ -1,12 +1,25 @@
 <!DOCTYPE html>
 <html ng-app="sniffer">
 <head>
+    <meta name="viewport"
+          content="width=device-width,initial-scale=1.0, minimum-scale=1.0,maximum-scale=1.0, user-scalable=no"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+          integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <title>packet-sniffer</title>
-
     <base href="/"/>
 </head>
 
 <body>
-    <h1>index.html</h1>
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-8">
+            <h1 class="mt-2">packet sniffer</h1>
+            <hr class="mt-0 mb-4">
+            <form method="get">
+                 <input type="submit" name="search_btn" value="search"/>
+            </form>
+        </div>
+    </div>
+</div>
 </body>
 </html>

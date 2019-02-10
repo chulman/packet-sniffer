@@ -1,4 +1,3 @@
-
 import scapy.all as scapy
 from scapy_http import http
 from socket import *
@@ -43,8 +42,8 @@ def process_packets(packet):
 #  store : store result in memory.
 # prn   : function name.
 def sniff_packet(interface):
-    scapy.sniff(iface=interface, store=False, prn=process_packets)
+        scapy.sniff(iface=interface, store=False, prn=process_packets)
 
 
-options = get_arguments()
-sniff_packet(options.interface)
+# options = get_arguments()
+# sniff_packet(options.interface)
