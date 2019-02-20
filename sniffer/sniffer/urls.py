@@ -19,12 +19,12 @@ from django.conf.urls import include
 from django.urls import path
 from . import views
 
-def index(request):
+def healthcheck(request):
     return HttpResponse('hello world')
 
 urlpatterns = [
     path('', views.index),  # root path  /, index func
-    path('healthcheck/', index),
+    path('healthcheck/', healthcheck),
     path('admin/', admin.site.urls),
     path('monitor/', include('monitor.urls')),
 ]

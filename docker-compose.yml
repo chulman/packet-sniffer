@@ -16,41 +16,41 @@ services:
       interval: 30s
       timeout: 10s
       retries: 3
-
-  web:
-    build: sniffer-web
-    image: chulman/sniffer/web:latest
-    container_name: sniffer
-    entrypoint: ./script/entrypoint.sh
-    link:
-      - redis:redis
-    volumes:
-      - ./sniffer:/sniffer
-    expose:
-      - "8000"
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
-      interval: 30s
-      timeout: 60s
-      retries: 15
-    networks:
-    - default
-
-  nginx:
-    image: nginx:latest
-    container_name: nginx
-    ports:
-      - "8000:8000"
-    volumes:
-      - ./sniffer:/sniffer
-      - ./nginx/config:/etc/nginx/conf.d
-    depends_on:
-      redis:
-        condition: service_healthy
-      app:
-        condition: service_healthy
-    networks:
-      - default
+#
+#  web:
+#    build: sniffer-web
+#    image: chulman/sniffer/web:latest
+#    container_name: sniffer
+#    entrypoint: ./script/entrypoint.sh
+##    link:
+##      - redis:redis
+#    volumes:
+#      - ./sniffer:/sniffer
+#    expose:
+#      - "8000"
+#    healthcheck:
+#      test: ["CMD", "curl", "-f", "http://localhost:8000/healthcheck"]
+#      interval: 30s
+#      timeout: 60s
+#      retries: 15
+#    networks:
+#    - default
+#
+#  nginx:
+#    image: nginx:latest
+#    container_name: nginx
+#    ports:
+#      - "8000:8000"
+#    volumes:
+#      - ./sniffer:/sniffer
+#      - ./nginx/config:/etc/nginx/conf.d
+#    depends_on:
+#      redis:
+#        condition: service_healthy
+#      app:
+#        condition: service_healthy
+#    networks:
+#      - default
 networks:
   default:
 

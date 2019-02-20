@@ -1,7 +1,12 @@
+import hexdump
 import scapy.all as scapy
 from scapy_http import http
 from socket import *
 import os
+from datetime import datetime
+from django.core.cache import cache
+from django.http import JsonResponse
+import binascii
 
 # argparse를 통해 명령행 매개변수 실행
 import argparse
@@ -29,7 +34,16 @@ def get_credentials(packet):
 
 
 def process_packets(packet):
-    print(str(packet))
+
+    today=datetime.today().strftime("%Y/%m/%d-%H:%M:%S")
+    # time=datetime.now().strftime('%H:%M:%S')
+    hexdump.hexdump(bytes(packet))
+
+    #######TODO#######
+    # redis save
+    cache.set(today, bytes(packet).hex())
+
+
     if packet.haslayer(http.HTTPRequest):
         url = get_url(packet)
         print("[+] Http Request >> " + url)
