@@ -1,15 +1,16 @@
 import hexdump
 import scapy.all as scapy
 from scapy_http import http
-from socket import *
-import os
-from datetime import datetime
-from django.core.cache import cache
-from django.http import JsonResponse
-import binascii
 
-# argparse를 통해 명령행 매개변수 실행
+from datetime import datetime
+import json
+from collections import OrderedDict
+
+from django_redis import get_redis_connection
+from django.core.cache import cache
+
 import argparse
+
 
 def get_arguments():
     parser = argparse.ArgumentParser()
@@ -34,15 +35,19 @@ def get_credentials(packet):
 
 
 def process_packets(packet):
+    date=datetime.today().strftime("%Y/%m/%d-%H:%M:%S")
+    hex_packet = hexdump.hexdump(bytes(packet),'return')
 
-    today=datetime.today().strftime("%Y/%m/%d-%H:%M:%S")
-    # time=datetime.now().strftime('%H:%M:%S')
-    hexdump.hexdump(bytes(packet))
+    group_data = OrderedDict()
+    group_data["date"] = date
+    group_data["packet"] = str(packet)
 
-    #######TODO#######
-    # redis save
-    cache.set(today, bytes(packet).hex())
+    json_data=json.dumps(group_data, ensure_ascii=False, indent="\t")
 
+    # redis, connection pool, redis save
+    con = get_redis_connection("default")
+    con.expire(date,60*10)
+    con.lpush(date,json_data)
 
     if packet.haslayer(http.HTTPRequest):
         url = get_url(packet)

@@ -1,5 +1,7 @@
 django>=2.1.5
 django-debug-toolbar==1.8
 scapy==2.4.*
+scapy-http>=1.8
 django-redis==4.10.0
-hexdump
+redis=3.1.0
+hexdump>=3.*   
